@@ -1,0 +1,1375 @@
+2026-09-28 13:20:28 | INFO | P06 | === RUN START ===
+2026-09-28 13:20:28 | INFO | P06 | project=P06 - LINEAR REGRESSION
+2026-09-28 13:20:28 | INFO | P06 | repo_dir=datafun-06-ml
+2026-09-28 13:20:28 | INFO | P06 | python=3.14.7
+2026-09-28 13:20:28 | INFO | P06 | os=Windows 11
+2026-09-28 13:20:28 | INFO | P06 | shell=powershell
+2026-09-28 13:20:28 | INFO | P06 | cwd=.
+2026-09-28 13:20:28 | INFO | P06 | github_actions=False
+2026-09-28 13:20:28 | INFO | P06 | ===================================
+2026-09-28 13:20:28 | INFO | P06 | START main()
+2026-09-28 13:20:28 | INFO | P06 | ===================================
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | 01. OBSERVE the data and prior findings.
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | data file = data\raw\penguins.csv
+2026-09-28 13:20:28 | INFO | P06 | Data loaded successfully.
+2026-09-28 13:20:28 | INFO | P06 | Grain: one penguin
+2026-09-28 13:20:28 | INFO | P06 | Rows: 344
+2026-09-28 13:20:28 | INFO | P06 | Columns: 8
+2026-09-28 13:20:28 | INFO | P06 | Column names: ['species', 'island', 'bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g', 'sex', 'year']
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | 02. DECLARE the target and feature.
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | Target:  body_mass_g
+2026-09-28 13:20:28 | INFO | P06 | Feature: bill_length_mm
+2026-09-28 13:20:28 | INFO | P06 | 
+I want to predict body mass.
+
+I selected bill length as the feature.
+
+A bigger penguin may have both a longer bill and more mass,
+so bill length might contain useful information
+for predicting body mass.
+
+I do not know yet how well bill length will predict body mass.
+The modeling process will provide evidence.
+
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | 03. PREPARE the modeling data.
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | Original rows: 344
+2026-09-28 13:20:28 | INFO | P06 | Modeling rows: 342
+2026-09-28 13:20:28 | INFO | P06 | Rows dropped: 2
+2026-09-28 13:20:28 | INFO | P06 | X shape: (342, 1)
+2026-09-28 13:20:28 | INFO | P06 | y shape: (342,)
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | 04. SPLIT into training and test data.
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model,
+while still keeping a separate set of observations
+that the model did not see during training.
+
+The test rows will be used later
+to evaluate how the trained model performs
+on unseen observations.
+
+I will use a random seed of 42.
+
+The specific value 42 is not analytically important.
+I use a fixed seed so the random split is reproducible.
+Running the project again will produce the same
+training and test observations,
+which makes results easier to reproduce and compare.
+
+2026-09-28 13:20:28 | INFO | P06 | Training rows: 273
+2026-09-28 13:20:28 | INFO | P06 | Test rows: 69
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | 05. BASELINE with a simple reference model.
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore bill length
+and predict the average body mass
+from the training data for every test observation.
+
+A useful predictive model should improve
+on this simple reference prediction.
+
+2026-09-28 13:20:28 | INFO | P06 | Baseline strategy: mean
+2026-09-28 13:20:28 | INFO | P06 | Baseline RMSE: 751.68
+2026-09-28 13:20:28 | INFO | P06 | Baseline R-squared: -0.002
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | 06. TRAIN a LinearRegression model.
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between the selected feature and target.
+
+This gives a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight line
+is a good description of the relationship.
+
+The evaluation metrics and residual plot
+will help assess whether the model is useful.
+
+2026-09-28 13:20:28 | INFO | P06 | The model learned this line:
+2026-09-28 13:20:28 | INFO | P06 | body_mass_g = 85.343 * bill_length_mm + 454.089
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | 07. PREDICT on X_test.
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | Predictions created: 69
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | 08. EVALUATE baseline vs model on y_test.
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | BASELINE RESULTS
+2026-09-28 13:20:28 | INFO | P06 | RMSE:      751.68
+2026-09-28 13:20:28 | INFO | P06 | R-squared: -0.002
+2026-09-28 13:20:28 | INFO | P06 | LINEAR REGRESSION RESULTS
+2026-09-28 13:20:28 | INFO | P06 | RMSE:      565.76
+2026-09-28 13:20:28 | INFO | P06 | R-squared: 0.433
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | 09. VISUALIZE predictions and residuals.
+2026-09-28 13:20:28 | INFO | P06 | -------------------------------
+2026-09-28 13:20:28 | INFO | P06 | Chart saved successfully at docs\images\regression-predictions.png.
+2026-09-28 13:20:29 | INFO | P06 | Chart saved successfully at docs\images\regression-residuals.png.
+2026-09-28 13:20:29 | INFO | P06 | -------------------------------
+2026-09-28 13:20:29 | INFO | P06 | 10. ASSESS the results.
+2026-09-28 13:20:29 | INFO | P06 | -------------------------------
+2026-09-28 13:20:29 | INFO | P06 | CUSTOM OBSERVATIONS:
+    I used bill length to predict body mass.
+
+    The baseline RMSE was ...
+    The LinearRegression RMSE was ...
+
+    Compared with the baseline,
+    the LinearRegression model ...
+
+    The model R-squared was ...
+
+    In the residual plot, I observed ...
+
+    Based on this evidence,
+    I conclude ...
+
+    Next, I would like to try ...
+    
+2026-09-28 13:20:29 | INFO | P06 | In a script, call plt.show() at the end to display all charts.
+2026-09-28 13:20:29 | INFO | P06 | Close all chart windows (with the close button) to continue.
+2026-10-01 18:45:06 | INFO | P06-CO2 | === RUN START ===
+2026-10-01 18:45:06 | INFO | P06-CO2 | project=P06 - LINEAR REGRESSION - CO2
+2026-10-01 18:45:06 | INFO | P06-CO2 | repo_dir=datafun-06-ml
+2026-10-01 18:45:06 | INFO | P06-CO2 | python=3.14.7
+2026-10-01 18:45:06 | INFO | P06-CO2 | os=Windows 11
+2026-10-01 18:45:06 | INFO | P06-CO2 | shell=powershell
+2026-10-01 18:45:06 | INFO | P06-CO2 | cwd=.
+2026-10-01 18:45:06 | INFO | P06-CO2 | github_actions=False
+2026-10-01 18:45:06 | INFO | P06-CO2 | ===================================
+2026-10-01 18:45:06 | INFO | P06-CO2 | START main()
+2026-10-01 18:45:06 | INFO | P06-CO2 | ===================================
+2026-10-01 18:45:06 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:06 | INFO | P06-CO2 | 01. OBSERVE the data and prior findings.
+2026-10-01 18:45:06 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:06 | INFO | P06-CO2 | data file = data\raw\owid-co2-data-subset.csv
+2026-10-01 18:45:06 | INFO | P06-CO2 | Data loaded successfully.
+2026-10-01 18:45:06 | INFO | P06-CO2 | Grain: one country or entity in one year
+2026-10-01 18:45:06 | INFO | P06-CO2 | Rows: 350
+2026-10-01 18:45:06 | INFO | P06-CO2 | Columns: 14
+2026-10-01 18:45:06 | INFO | P06-CO2 | Column names: ['country', 'year', 'population', 'gdp', 'co2', 'co2_per_capita', 'coal_co2', 'oil_co2', 'gas_co2', 'cement_co2', 'methane', 'nitrous_oxide', 'total_ghg', 'temperature_change_from_co2']
+2026-10-01 18:45:06 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:06 | INFO | P06-CO2 | 02. DECLARE the target and feature.
+2026-10-01 18:45:06 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:06 | INFO | P06-CO2 | Target:  co2
+2026-10-01 18:45:06 | INFO | P06-CO2 | Feature: gdp
+2026-10-01 18:45:06 | INFO | P06-CO2 | 
+I want to predict CO2 emissions.
+
+I selected GDP as the feature.
+
+Economic activity often requires energy,
+transportation, manufacturing, construction,
+and other activities that can produce CO2 emissions.
+
+GDP might therefore contain useful information
+for predicting CO2 emissions.
+
+I do not know yet how well GDP will predict CO2 emissions.
+The modeling process will provide evidence.
+
+2026-10-01 18:45:06 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:06 | INFO | P06-CO2 | 03. PREPARE the modeling data.
+2026-10-01 18:45:06 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:06 | INFO | P06-CO2 | Original rows: 350
+2026-10-01 18:45:06 | INFO | P06-CO2 | Modeling rows: 308
+2026-10-01 18:45:06 | INFO | P06-CO2 | Rows dropped: 42
+2026-10-01 18:45:06 | INFO | P06-CO2 | X shape: (308, 1)
+2026-10-01 18:45:06 | INFO | P06-CO2 | y shape: (308,)
+2026-10-01 18:45:06 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:06 | INFO | P06-CO2 | 04. SPLIT into training and test data.
+2026-10-01 18:45:06 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:06 | INFO | P06-CO2 | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model,
+while still keeping a separate set of observations
+that the model did not see during training.
+
+The test rows will be used later
+to evaluate how the trained model performs
+on unseen observations.
+
+I will use a random seed of 42.
+
+The specific value 42 is not analytically important.
+I use a fixed seed so the random split is reproducible.
+Running the project again will produce the same
+training and test observations,
+which makes results easier to reproduce and compare.
+
+2026-10-01 18:45:06 | INFO | P06-CO2 | Training rows: 246
+2026-10-01 18:45:06 | INFO | P06-CO2 | Test rows: 62
+2026-10-01 18:45:06 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:06 | INFO | P06-CO2 | 05. BASELINE with a simple reference model.
+2026-10-01 18:45:06 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:06 | INFO | P06-CO2 | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore GDP
+and predict the average CO2 emissions
+from the training data for every test observation.
+
+A useful predictive model should improve
+on this simple reference prediction.
+
+2026-10-01 18:45:07 | INFO | P06-CO2 | Baseline strategy: mean
+2026-10-01 18:45:07 | INFO | P06-CO2 | Baseline RMSE: 6327.50
+2026-10-01 18:45:07 | INFO | P06-CO2 | Baseline R-squared: -0.000
+2026-10-01 18:45:07 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:07 | INFO | P06-CO2 | 06. TRAIN a LinearRegression model.
+2026-10-01 18:45:07 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:07 | INFO | P06-CO2 | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between the selected feature and target.
+
+This gives a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight line
+is a good description of the relationship.
+
+The evaluation metrics and residual plot
+will help assess whether the model is useful.
+
+2026-10-01 18:45:07 | INFO | P06-CO2 | The model learned this line:
+2026-10-01 18:45:07 | INFO | P06-CO2 | co2 = 3.23064e-10 * gdp + 324.984
+2026-10-01 18:45:07 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:07 | INFO | P06-CO2 | 07. PREDICT on X_test.
+2026-10-01 18:45:07 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:07 | INFO | P06-CO2 | Predictions created: 62
+2026-10-01 18:45:07 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:07 | INFO | P06-CO2 | 08. EVALUATE baseline vs model on y_test.
+2026-10-01 18:45:07 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:07 | INFO | P06-CO2 | BASELINE RESULTS
+2026-10-01 18:45:07 | INFO | P06-CO2 | RMSE:      6327.50
+2026-10-01 18:45:07 | INFO | P06-CO2 | R-squared: -0.000
+2026-10-01 18:45:07 | INFO | P06-CO2 | LINEAR REGRESSION RESULTS
+2026-10-01 18:45:07 | INFO | P06-CO2 | RMSE:      1156.51
+2026-10-01 18:45:07 | INFO | P06-CO2 | R-squared: 0.967
+2026-10-01 18:45:07 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:07 | INFO | P06-CO2 | 09. VISUALIZE predictions and residuals.
+2026-10-01 18:45:07 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:07 | INFO | P06-CO2 | Chart saved successfully at docs\images\co2-regression-predictions.png.
+2026-10-01 18:45:07 | INFO | P06-CO2 | Chart saved successfully at docs\images\co2-regression-residuals.png.
+2026-10-01 18:45:07 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:07 | INFO | P06-CO2 | 10. ASSESS the results.
+2026-10-01 18:45:07 | INFO | P06-CO2 | -------------------------------
+2026-10-01 18:45:07 | INFO | P06-CO2 | CUSTOM OBSERVATIONS:
+    I used GDP to predict CO2 emissions.
+
+    The baseline RMSE was ...
+    The LinearRegression RMSE was ...
+
+    Compared with the baseline,
+    the LinearRegression model ...
+
+    The model R-squared was ...
+
+    In the residual plot, I observed ...
+
+    Based on this evidence,
+    I conclude ...
+
+    Next, I would like to try ...
+    
+2026-10-01 18:45:07 | INFO | P06-CO2 | In a script, call plt.show() at the end to display all charts.
+2026-10-01 18:45:07 | INFO | P06-CO2 | Close all chart windows (with the close button) to continue.
+2026-10-01 18:52:15 | INFO | P06-CO2 | ===================================
+2026-10-01 18:52:15 | INFO | P06-CO2 | END main() - Executed successfully!
+2026-10-01 18:52:15 | INFO | P06-CO2 | ===================================
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | === RUN START ===
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | project=P06 - LINEAR REGRESSION - HOME SALES
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | repo_dir=datafun-06-ml
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | python=3.14.7
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | os=Windows 11
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | shell=powershell
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | cwd=.
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | github_actions=False
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | START main()
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | 01. OBSERVE the data.
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:53:07 | INFO | P06-HOME-SALES | data file = data\home_sales.csv
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | === RUN START ===
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | project=P06 - LINEAR REGRESSION - HOME SALES
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | repo_dir=datafun-06-ml
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | python=3.14.7
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | os=Windows 11
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | shell=powershell
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | cwd=.
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | github_actions=False
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | START main()
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 01. OBSERVE the data.
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | data file = data\home_sales.csv
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Data loaded successfully.
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Grain: one home sale
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Rows: 250
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Columns: 8
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Column names: ['neighborhood', 'property_type', 'price', 'sqft', 'bedrooms', 'bathrooms', 'year_built', 'satisfaction']
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 02. DECLARE the target and feature.
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Target:  price
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Feature: sqft
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 
+I want to predict home sale price.
+
+I selected square footage as the feature.
+
+Square footage provides a measurement of the size
+of the home. Larger homes may have higher sale prices
+because they provide more living space.
+
+Square footage might therefore contain useful information
+for predicting home prices.
+
+I do not know yet how well square footage will predict
+home prices. The modeling process will provide evidence.
+
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 03. PREPARE the modeling data.
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Original rows: 250
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Modeling rows: 250
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Rows dropped: 0
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | X shape: (250, 1)
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | y shape: (250,)
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 04. SPLIT into training and test data.
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model while keeping a separate
+set of observations that the model did not see
+during training.
+
+The test rows will be used to evaluate how the
+trained model performs on unseen observations.
+
+I will use a random seed of 42 so the split is
+reproducible.
+
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Training rows: 200
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Test rows: 50
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 05. BASELINE with a simple reference model.
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore square footage and predict
+the average home price from the training data for
+every test observation.
+
+A useful predictive model should improve on this
+simple reference prediction.
+
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Baseline strategy: mean
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Baseline RMSE: 209277.19
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Baseline R-squared: -0.021
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 06. TRAIN a LinearRegression model.
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between square footage and home price.
+
+This provides a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight-line
+relationship is a good description of home prices.
+
+The evaluation metrics and residual plot will help
+assess whether the model is useful.
+
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | The model learned this line:
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | price = 206.08 * sqft + 172519
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 07. PREDICT on X_test.
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Predictions created: 50
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 08. EVALUATE baseline vs model on y_test.
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | BASELINE RESULTS
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | RMSE:      209277.19
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | R-squared: -0.021
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | LINEAR REGRESSION RESULTS
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | RMSE:      169594.90
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | R-squared: 0.329
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | 09. VISUALIZE predictions and residuals.
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:17 | INFO | P06-HOME-SALES | Chart saved successfully at docs\images\home-sales-regression-predictions.png.
+2026-10-01 18:54:18 | INFO | P06-HOME-SALES | Chart saved successfully at docs\images\home-sales-regression-residuals.png.
+2026-10-01 18:54:18 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:18 | INFO | P06-HOME-SALES | 10. ASSESS the results.
+2026-10-01 18:54:18 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:54:18 | INFO | P06-HOME-SALES | CUSTOM OBSERVATIONS:
+
+I used square footage to predict home prices.
+
+The baseline RMSE was ...
+
+The LinearRegression RMSE was ...
+
+Compared with the baseline,
+the LinearRegression model ...
+
+The model R-squared was ...
+
+In the residual plot, I observed ...
+
+Based on this evidence,
+I conclude ...
+
+Next, I would like to try using another
+feature such as bedrooms or bathrooms.
+
+2026-10-01 18:54:18 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 18:54:18 | INFO | P06-HOME-SALES | END main() - Executed successfully!
+2026-10-01 18:54:18 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | === RUN START ===
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | project=P06 - LINEAR REGRESSION - HOME SALES
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | repo_dir=datafun-06-ml
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | python=3.14.7
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | os=Windows 11
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | shell=powershell
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | cwd=.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | github_actions=False
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | START main()
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 01. OBSERVE the data.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | data file = data\home_sales.csv
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Data loaded successfully.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Grain: one home sale
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Rows: 250
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Columns: 8
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Column names: ['neighborhood', 'property_type', 'price', 'sqft', 'bedrooms', 'bathrooms', 'year_built', 'satisfaction']
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 02. DECLARE the target and feature.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Target:  price
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Feature: sqft
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 
+I want to predict home sale price.
+
+I selected square footage as the feature.
+
+Square footage provides a measurement of the size
+of the home. Larger homes may have higher sale prices
+because they provide more living space.
+
+Square footage might therefore contain useful information
+for predicting home prices.
+
+I do not know yet how well square footage will predict
+home prices. The modeling process will provide evidence.
+
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 03. PREPARE the modeling data.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Original rows: 250
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Modeling rows: 250
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Rows dropped: 0
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | X shape: (250, 1)
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | y shape: (250,)
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 04. SPLIT into training and test data.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model while keeping a separate
+set of observations that the model did not see
+during training.
+
+The test rows will be used to evaluate how the
+trained model performs on unseen observations.
+
+I will use a random seed of 42 so the split is
+reproducible.
+
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Training rows: 200
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Test rows: 50
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 05. BASELINE with a simple reference model.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore square footage and predict
+the average home price from the training data for
+every test observation.
+
+A useful predictive model should improve on this
+simple reference prediction.
+
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Baseline strategy: mean
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Baseline RMSE: 209277.19
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Baseline R-squared: -0.021
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 06. TRAIN a LinearRegression model.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between square footage and home price.
+
+This provides a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight-line
+relationship is a good description of home prices.
+
+The evaluation metrics and residual plot will help
+assess whether the model is useful.
+
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | The model learned this line:
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | price = 206.08 * sqft + 172519
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 07. PREDICT on X_test.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Predictions created: 50
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 08. EVALUATE baseline vs model on y_test.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | BASELINE RESULTS
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | RMSE:      209277.19
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | R-squared: -0.021
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | LINEAR REGRESSION RESULTS
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | RMSE:      169594.90
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | R-squared: 0.329
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 09. VISUALIZE predictions and residuals.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Chart saved successfully at docs\images\home-sales-regression-predictions.png.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | Chart saved successfully at docs\images\home-sales-regression-residuals.png.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | 10. ASSESS the results.
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | CUSTOM OBSERVATIONS:
+
+I used square footage to predict home prices.
+
+The baseline RMSE was ...
+
+The LinearRegression RMSE was ...
+
+Compared with the baseline,
+the LinearRegression model ...
+
+The model R-squared was ...
+
+In the residual plot, I observed ...
+
+Based on this evidence,
+I conclude ...
+
+Next, I would like to try using another
+feature such as bedrooms or bathrooms.
+
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | END main() - Executed successfully!
+2026-10-01 18:58:29 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | === RUN START ===
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | project=P06 - LINEAR REGRESSION - HOME SALES
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | repo_dir=datafun-06-ml
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | python=3.14.7
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | os=Windows 11
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | shell=powershell
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | cwd=.
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | github_actions=False
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | START main()
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 01. OBSERVE the data.
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | data file = data\home_sales.csv
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Data loaded successfully.
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Grain: one home sale
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Rows: 250
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Columns: 8
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Column names: ['neighborhood', 'property_type', 'price', 'sqft', 'bedrooms', 'bathrooms', 'year_built', 'satisfaction']
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 02. DECLARE the target and feature.
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Target:  price
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Feature: sqft
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 
+I want to predict home sale price.
+
+I selected square footage as the feature.
+
+Square footage provides a measurement of the size
+of the home. Larger homes may have higher sale prices
+because they provide more living space.
+
+Square footage might therefore contain useful information
+for predicting home prices.
+
+I do not know yet how well square footage will predict
+home prices. The modeling process will provide evidence.
+
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 03. PREPARE the modeling data.
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Original rows: 250
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Modeling rows: 250
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Rows dropped: 0
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | X shape: (250, 1)
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | y shape: (250,)
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 04. SPLIT into training and test data.
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model while keeping a separate
+set of observations that the model did not see
+during training.
+
+The test rows will be used to evaluate how the
+trained model performs on unseen observations.
+
+I will use a random seed of 42 so the split is
+reproducible.
+
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Training rows: 200
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Test rows: 50
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 05. BASELINE with a simple reference model.
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore square footage and predict
+the average home price from the training data for
+every test observation.
+
+A useful predictive model should improve on this
+simple reference prediction.
+
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Baseline strategy: mean
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Baseline RMSE: 209277.19
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Baseline R-squared: -0.021
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 06. TRAIN a LinearRegression model.
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between square footage and home price.
+
+This provides a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight-line
+relationship is a good description of home prices.
+
+The evaluation metrics and residual plot will help
+assess whether the model is useful.
+
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | The model learned this line:
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | price = 206.08 * sqft + 172519
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 07. PREDICT on X_test.
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | Predictions created: 50
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 08. EVALUATE baseline vs model on y_test.
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | BASELINE RESULTS
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | RMSE:      209277.19
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | R-squared: -0.021
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | LINEAR REGRESSION RESULTS
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | RMSE:      169594.90
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | R-squared: 0.329
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | 09. VISUALIZE predictions and residuals.
+2026-10-01 19:02:30 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:31 | INFO | P06-HOME-SALES | Chart saved successfully at docs\images\home-sales-regression-predictions.png.
+2026-10-01 19:02:31 | INFO | P06-HOME-SALES | Chart saved successfully at docs\images\home-sales-regression-residuals.png.
+2026-10-01 19:02:31 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:31 | INFO | P06-HOME-SALES | 10. ASSESS the results.
+2026-10-01 19:02:31 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 19:02:31 | INFO | P06-HOME-SALES | CUSTOM OBSERVATIONS:
+
+I used square footage to predict home prices.
+
+The baseline RMSE was ...
+
+The LinearRegression RMSE was ...
+
+Compared with the baseline,
+the LinearRegression model ...
+
+The model R-squared was ...
+
+In the residual plot, I observed ...
+
+Based on this evidence,
+I conclude ...
+
+Next, I would like to try using another
+feature such as bedrooms or bathrooms.
+
+2026-10-01 19:02:31 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 19:02:31 | INFO | P06-HOME-SALES | END main() - Executed successfully!
+2026-10-01 19:02:31 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 20:36:08 | INFO | P06 | === RUN START ===
+2026-10-01 20:36:08 | INFO | P06 | project=P06 - LINEAR REGRESSION
+2026-10-01 20:36:08 | INFO | P06 | repo_dir=datafun-06-ml
+2026-10-01 20:36:08 | INFO | P06 | python=3.14.7
+2026-10-01 20:36:08 | INFO | P06 | os=Windows 11
+2026-10-01 20:36:08 | INFO | P06 | shell=powershell
+2026-10-01 20:36:08 | INFO | P06 | cwd=.
+2026-10-01 20:36:08 | INFO | P06 | github_actions=False
+2026-10-01 20:36:08 | INFO | P06 | ===================================
+2026-10-01 20:36:08 | INFO | P06 | START main()
+2026-10-01 20:36:08 | INFO | P06 | ===================================
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 01. OBSERVE the data and prior findings.
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | data file = data\raw\penguins.csv
+2026-10-01 20:36:08 | INFO | P06 | Data loaded successfully.
+2026-10-01 20:36:08 | INFO | P06 | Grain: one penguin
+2026-10-01 20:36:08 | INFO | P06 | Rows: 344
+2026-10-01 20:36:08 | INFO | P06 | Columns: 8
+2026-10-01 20:36:08 | INFO | P06 | Column names: ['species', 'island', 'bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g', 'sex', 'year']
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 02. DECLARE the target and feature.
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | Target:  body_mass_g
+2026-10-01 20:36:08 | INFO | P06 | Feature: bill_length_mm
+2026-10-01 20:36:08 | INFO | P06 | 
+I want to predict body mass.
+
+I selected bill length as the feature.
+
+A bigger penguin may have both a longer bill and more mass,
+so bill length might contain useful information
+for predicting body mass.
+
+I do not know yet how well bill length will predict body mass.
+The modeling process will provide evidence.
+
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 03. PREPARE the modeling data.
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | Original rows: 344
+2026-10-01 20:36:08 | INFO | P06 | Modeling rows: 342
+2026-10-01 20:36:08 | INFO | P06 | Rows dropped: 2
+2026-10-01 20:36:08 | INFO | P06 | X shape: (342, 1)
+2026-10-01 20:36:08 | INFO | P06 | y shape: (342,)
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 04. SPLIT into training and test data.
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model,
+while still keeping a separate set of observations
+that the model did not see during training.
+
+The test rows will be used later
+to evaluate how the trained model performs
+on unseen observations.
+
+I will use a random seed of 42.
+
+The specific value 42 is not analytically important.
+I use a fixed seed so the random split is reproducible.
+Running the project again will produce the same
+training and test observations,
+which makes results easier to reproduce and compare.
+
+2026-10-01 20:36:08 | INFO | P06 | Training rows: 273
+2026-10-01 20:36:08 | INFO | P06 | Test rows: 69
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 05. BASELINE with a simple reference model.
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore bill length
+and predict the average body mass
+from the training data for every test observation.
+
+A useful predictive model should improve
+on this simple reference prediction.
+
+2026-10-01 20:36:08 | INFO | P06 | Baseline strategy: mean
+2026-10-01 20:36:08 | INFO | P06 | Baseline RMSE: 751.68
+2026-10-01 20:36:08 | INFO | P06 | Baseline R-squared: -0.002
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 06. TRAIN a LinearRegression model.
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between the selected feature and target.
+
+This gives a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight line
+is a good description of the relationship.
+
+The evaluation metrics and residual plot
+will help assess whether the model is useful.
+
+2026-10-01 20:36:08 | INFO | P06 | The model learned this line:
+2026-10-01 20:36:08 | INFO | P06 | body_mass_g = 85.343 * bill_length_mm + 454.089
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 07. PREDICT on X_test.
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | Predictions created: 69
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 08. EVALUATE baseline vs model on y_test.
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | BASELINE RESULTS
+2026-10-01 20:36:08 | INFO | P06 | RMSE:      751.68
+2026-10-01 20:36:08 | INFO | P06 | R-squared: -0.002
+2026-10-01 20:36:08 | INFO | P06 | LINEAR REGRESSION RESULTS
+2026-10-01 20:36:08 | INFO | P06 | RMSE:      565.76
+2026-10-01 20:36:08 | INFO | P06 | R-squared: 0.433
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 09. VISUALIZE predictions and residuals.
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | Chart saved successfully at docs\images\regression-predictions.png.
+2026-10-01 20:36:08 | INFO | P06 | Chart saved successfully at docs\images\regression-residuals.png.
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | 10. ASSESS the results.
+2026-10-01 20:36:08 | INFO | P06 | -------------------------------
+2026-10-01 20:36:08 | INFO | P06 | CUSTOM OBSERVATIONS:
+    I used bill length to predict body mass.
+
+    The baseline RMSE was ...
+    The LinearRegression RMSE was ...
+
+    Compared with the baseline,
+    the LinearRegression model ...
+
+    The model R-squared was ...
+
+    In the residual plot, I observed ...
+
+    Based on this evidence,
+    I conclude ...
+
+    Next, I would like to try ...
+    
+2026-10-01 20:36:08 | INFO | P06 | In a script, call plt.show() at the end to display all charts.
+2026-10-01 20:36:08 | INFO | P06 | Close all chart windows (with the close button) to continue.
+2026-10-01 20:36:12 | INFO | P06 | ===================================
+2026-10-01 20:36:12 | INFO | P06 | END main() - Executed successfully!
+2026-10-01 20:36:12 | INFO | P06 | ===================================
+2026-10-01 20:37:52 | INFO | P06 | === RUN START ===
+2026-10-01 20:37:52 | INFO | P06 | project=P06 - LINEAR REGRESSION
+2026-10-01 20:37:52 | INFO | P06 | repo_dir=datafun-06-ml
+2026-10-01 20:37:52 | INFO | P06 | python=3.14.7
+2026-10-01 20:37:52 | INFO | P06 | os=Windows 11
+2026-10-01 20:37:52 | INFO | P06 | shell=powershell
+2026-10-01 20:37:52 | INFO | P06 | cwd=.
+2026-10-01 20:37:52 | INFO | P06 | github_actions=False
+2026-10-01 20:37:52 | INFO | P06 | ===================================
+2026-10-01 20:37:52 | INFO | P06 | START main()
+2026-10-01 20:37:52 | INFO | P06 | ===================================
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 01. OBSERVE the data and prior findings.
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | data file = data\raw\penguins.csv
+2026-10-01 20:37:52 | INFO | P06 | Data loaded successfully.
+2026-10-01 20:37:52 | INFO | P06 | Grain: one penguin
+2026-10-01 20:37:52 | INFO | P06 | Rows: 344
+2026-10-01 20:37:52 | INFO | P06 | Columns: 8
+2026-10-01 20:37:52 | INFO | P06 | Column names: ['species', 'island', 'bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g', 'sex', 'year']
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 02. DECLARE the target and feature.
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | Target:  body_mass_g
+2026-10-01 20:37:52 | INFO | P06 | Feature: bill_length_mm
+2026-10-01 20:37:52 | INFO | P06 | 
+I want to predict body mass.
+
+I selected bill length as the feature.
+
+A bigger penguin may have both a longer bill and more mass,
+so bill length might contain useful information
+for predicting body mass.
+
+I do not know yet how well bill length will predict body mass.
+The modeling process will provide evidence.
+
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 03. PREPARE the modeling data.
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | Original rows: 344
+2026-10-01 20:37:52 | INFO | P06 | Modeling rows: 342
+2026-10-01 20:37:52 | INFO | P06 | Rows dropped: 2
+2026-10-01 20:37:52 | INFO | P06 | X shape: (342, 1)
+2026-10-01 20:37:52 | INFO | P06 | y shape: (342,)
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 04. SPLIT into training and test data.
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model,
+while still keeping a separate set of observations
+that the model did not see during training.
+
+The test rows will be used later
+to evaluate how the trained model performs
+on unseen observations.
+
+I will use a random seed of 42.
+
+The specific value 42 is not analytically important.
+I use a fixed seed so the random split is reproducible.
+Running the project again will produce the same
+training and test observations,
+which makes results easier to reproduce and compare.
+
+2026-10-01 20:37:52 | INFO | P06 | Training rows: 273
+2026-10-01 20:37:52 | INFO | P06 | Test rows: 69
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 05. BASELINE with a simple reference model.
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore bill length
+and predict the average body mass
+from the training data for every test observation.
+
+A useful predictive model should improve
+on this simple reference prediction.
+
+2026-10-01 20:37:52 | INFO | P06 | Baseline strategy: mean
+2026-10-01 20:37:52 | INFO | P06 | Baseline RMSE: 751.68
+2026-10-01 20:37:52 | INFO | P06 | Baseline R-squared: -0.002
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 06. TRAIN a LinearRegression model.
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between the selected feature and target.
+
+This gives a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight line
+is a good description of the relationship.
+
+The evaluation metrics and residual plot
+will help assess whether the model is useful.
+
+2026-10-01 20:37:52 | INFO | P06 | The model learned this line:
+2026-10-01 20:37:52 | INFO | P06 | body_mass_g = 85.343 * bill_length_mm + 454.089
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 07. PREDICT on X_test.
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | Predictions created: 69
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 08. EVALUATE baseline vs model on y_test.
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | BASELINE RESULTS
+2026-10-01 20:37:52 | INFO | P06 | RMSE:      751.68
+2026-10-01 20:37:52 | INFO | P06 | R-squared: -0.002
+2026-10-01 20:37:52 | INFO | P06 | LINEAR REGRESSION RESULTS
+2026-10-01 20:37:52 | INFO | P06 | RMSE:      565.76
+2026-10-01 20:37:52 | INFO | P06 | R-squared: 0.433
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 09. VISUALIZE predictions and residuals.
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | Chart saved successfully at docs\images\regression-predictions.png.
+2026-10-01 20:37:52 | INFO | P06 | Chart saved successfully at docs\images\regression-residuals.png.
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | 10. ASSESS the results.
+2026-10-01 20:37:52 | INFO | P06 | -------------------------------
+2026-10-01 20:37:52 | INFO | P06 | CUSTOM OBSERVATIONS:
+    I used bill length to predict body mass.
+
+    The baseline RMSE was ...
+    The LinearRegression RMSE was ...
+
+    Compared with the baseline,
+    the LinearRegression model ...
+
+    The model R-squared was ...
+
+    In the residual plot, I observed ...
+
+    Based on this evidence,
+    I conclude ...
+
+    Next, I would like to try ...
+    
+2026-10-01 20:37:52 | INFO | P06 | In a script, call plt.show() at the end to display all charts.
+2026-10-01 20:37:52 | INFO | P06 | Close all chart windows (with the close button) to continue.
+2026-10-01 20:37:56 | INFO | P06 | ===================================
+2026-10-01 20:37:56 | INFO | P06 | END main() - Executed successfully!
+2026-10-01 20:37:56 | INFO | P06 | ===================================
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | === RUN START ===
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | project=P06 - LINEAR REGRESSION - HOME SALES
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | repo_dir=datafun-06-ml
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | python=3.14.7
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | os=Windows 11
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | shell=powershell
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | cwd=.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | github_actions=False
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | START main()
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 01. OBSERVE the data.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | data file = data\home_sales.csv
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Data loaded successfully.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Grain: one home sale
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Rows: 250
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Columns: 8
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Column names: ['neighborhood', 'property_type', 'price', 'sqft', 'bedrooms', 'bathrooms', 'year_built', 'satisfaction']
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 02. DECLARE the target and feature.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Target:  price
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Feature: sqft
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 
+I want to predict home sale price.
+
+I selected square footage as the feature.
+
+Square footage provides a measurement of the size
+of the home. Larger homes may have higher sale prices
+because they provide more living space.
+
+Square footage might therefore contain useful information
+for predicting home prices.
+
+I do not know yet how well square footage will predict
+home prices. The modeling process will provide evidence.
+
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 03. PREPARE the modeling data.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Original rows: 250
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Modeling rows: 250
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Rows dropped: 0
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | X shape: (250, 1)
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | y shape: (250,)
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 04. SPLIT into training and test data.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model while keeping a separate
+set of observations that the model did not see
+during training.
+
+The test rows will be used to evaluate how the
+trained model performs on unseen observations.
+
+I will use a random seed of 42 so the split is
+reproducible.
+
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Training rows: 200
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Test rows: 50
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 05. BASELINE with a simple reference model.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore square footage and predict
+the average home price from the training data for
+every test observation.
+
+A useful predictive model should improve on this
+simple reference prediction.
+
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Baseline strategy: mean
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Baseline RMSE: 209277.19
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Baseline R-squared: -0.021
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 06. TRAIN a LinearRegression model.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between square footage and home price.
+
+This provides a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight-line
+relationship is a good description of home prices.
+
+The evaluation metrics and residual plot will help
+assess whether the model is useful.
+
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | The model learned this line:
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | price = 206.08 * sqft + 172519
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 07. PREDICT on X_test.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Predictions created: 50
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 08. EVALUATE baseline vs model on y_test.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | BASELINE RESULTS
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | RMSE:      209277.19
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | R-squared: -0.021
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | LINEAR REGRESSION RESULTS
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | RMSE:      169594.90
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | R-squared: 0.329
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 09. VISUALIZE predictions and residuals.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Chart saved successfully at docs\images\home-sales-regression-predictions.png.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | Chart saved successfully at docs\images\home-sales-regression-residuals.png.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | 10. ASSESS the results.
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | -------------------------------
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | CUSTOM OBSERVATIONS:
+
+I used square footage to predict home prices.
+
+The baseline RMSE was ...
+
+The LinearRegression RMSE was ...
+
+Compared with the baseline,
+the LinearRegression model ...
+
+The model R-squared was ...
+
+In the residual plot, I observed ...
+
+Based on this evidence,
+I conclude ...
+
+Next, I would like to try using another
+feature such as bedrooms or bathrooms.
+
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | END main() - Executed successfully!
+2026-10-01 20:38:15 | INFO | P06-HOME-SALES | ===================================
+2026-10-01 20:41:45 | INFO | P06 | === RUN START ===
+2026-10-01 20:41:45 | INFO | P06 | project=P06 - LINEAR REGRESSION
+2026-10-01 20:41:45 | INFO | P06 | repo_dir=datafun-06-ml
+2026-10-01 20:41:45 | INFO | P06 | python=3.14.7
+2026-10-01 20:41:45 | INFO | P06 | os=Windows 11
+2026-10-01 20:41:45 | INFO | P06 | shell=powershell
+2026-10-01 20:41:45 | INFO | P06 | cwd=.
+2026-10-01 20:41:45 | INFO | P06 | github_actions=False
+2026-10-01 20:41:45 | INFO | P06 | ===================================
+2026-10-01 20:41:45 | INFO | P06 | START main()
+2026-10-01 20:41:45 | INFO | P06 | ===================================
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 01. OBSERVE the data and prior findings.
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | data file = data\raw\penguins.csv
+2026-10-01 20:41:45 | INFO | P06 | Data loaded successfully.
+2026-10-01 20:41:45 | INFO | P06 | Grain: one penguin
+2026-10-01 20:41:45 | INFO | P06 | Rows: 344
+2026-10-01 20:41:45 | INFO | P06 | Columns: 8
+2026-10-01 20:41:45 | INFO | P06 | Column names: ['species', 'island', 'bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g', 'sex', 'year']
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 02. DECLARE the target and feature.
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | Target:  body_mass_g
+2026-10-01 20:41:45 | INFO | P06 | Feature: bill_length_mm
+2026-10-01 20:41:45 | INFO | P06 | 
+I want to predict body mass.
+
+I selected bill length as the feature.
+
+A bigger penguin may have both a longer bill and more mass,
+so bill length might contain useful information
+for predicting body mass.
+
+I do not know yet how well bill length will predict body mass.
+The modeling process will provide evidence.
+
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 03. PREPARE the modeling data.
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | Original rows: 344
+2026-10-01 20:41:45 | INFO | P06 | Modeling rows: 342
+2026-10-01 20:41:45 | INFO | P06 | Rows dropped: 2
+2026-10-01 20:41:45 | INFO | P06 | X shape: (342, 1)
+2026-10-01 20:41:45 | INFO | P06 | y shape: (342,)
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 04. SPLIT into training and test data.
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model,
+while still keeping a separate set of observations
+that the model did not see during training.
+
+The test rows will be used later
+to evaluate how the trained model performs
+on unseen observations.
+
+I will use a random seed of 42.
+
+The specific value 42 is not analytically important.
+I use a fixed seed so the random split is reproducible.
+Running the project again will produce the same
+training and test observations,
+which makes results easier to reproduce and compare.
+
+2026-10-01 20:41:45 | INFO | P06 | Training rows: 273
+2026-10-01 20:41:45 | INFO | P06 | Test rows: 69
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 05. BASELINE with a simple reference model.
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore bill length
+and predict the average body mass
+from the training data for every test observation.
+
+A useful predictive model should improve
+on this simple reference prediction.
+
+2026-10-01 20:41:45 | INFO | P06 | Baseline strategy: mean
+2026-10-01 20:41:45 | INFO | P06 | Baseline RMSE: 751.68
+2026-10-01 20:41:45 | INFO | P06 | Baseline R-squared: -0.002
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 06. TRAIN a LinearRegression model.
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between the selected feature and target.
+
+This gives a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight line
+is a good description of the relationship.
+
+The evaluation metrics and residual plot
+will help assess whether the model is useful.
+
+2026-10-01 20:41:45 | INFO | P06 | The model learned this line:
+2026-10-01 20:41:45 | INFO | P06 | body_mass_g = 85.343 * bill_length_mm + 454.089
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 07. PREDICT on X_test.
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | Predictions created: 69
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 08. EVALUATE baseline vs model on y_test.
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | BASELINE RESULTS
+2026-10-01 20:41:45 | INFO | P06 | RMSE:      751.68
+2026-10-01 20:41:45 | INFO | P06 | R-squared: -0.002
+2026-10-01 20:41:45 | INFO | P06 | LINEAR REGRESSION RESULTS
+2026-10-01 20:41:45 | INFO | P06 | RMSE:      565.76
+2026-10-01 20:41:45 | INFO | P06 | R-squared: 0.433
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 09. VISUALIZE predictions and residuals.
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | Chart saved successfully at docs\images\regression-predictions.png.
+2026-10-01 20:41:45 | INFO | P06 | Chart saved successfully at docs\images\regression-residuals.png.
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | 10. ASSESS the results.
+2026-10-01 20:41:45 | INFO | P06 | -------------------------------
+2026-10-01 20:41:45 | INFO | P06 | CUSTOM OBSERVATIONS:
+    I used bill length to predict body mass.
+
+    The baseline RMSE was ...
+    The LinearRegression RMSE was ...
+
+    Compared with the baseline,
+    the LinearRegression model ...
+
+    The model R-squared was ...
+
+    In the residual plot, I observed ...
+
+    Based on this evidence,
+    I conclude ...
+
+    Next, I would like to try ...
+    
+2026-10-01 20:41:45 | INFO | P06 | In a script, call plt.show() at the end to display all charts.
+2026-10-01 20:41:45 | INFO | P06 | Close all chart windows (with the close button) to continue.
+2026-10-01 20:41:45 | INFO | P06 | ===================================
+2026-10-01 20:41:45 | INFO | P06 | END main() - Executed successfully!
+2026-10-01 20:41:45 | INFO | P06 | ===================================
